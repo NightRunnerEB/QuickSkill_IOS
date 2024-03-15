@@ -20,16 +20,17 @@ final class UserViewModel: ObservableObject {
     }
     
     func register(firstName: String, lastName: String, email: String, password: String) {
-        let registrationData = RegistrationData(firstName: firstName, lastName: lastName, email: email, password: password)
-        NetworkServiceWithAlamofire.shared.registerUser(registrationData: registrationData, to: "https://example.com/api/register") { result in
-            switch result {
-            case .success:
-                self.isRegistered = true
-                print("Регистрация успешно завершена. Токен сохранен.")
-            case .failure(let error):
-                print("Ошибка регистрации: \(error.localizedDescription)")
-            }
-        }
+        self.isUserAuthenticated = true         // В рамках тестрирования в период отсутствия взаимосвязи с сервером.
+//        let registrationData = RegistrationData(firstName: firstName, lastName: lastName, email: email, password: password)
+//        NetworkServiceWithAlamofire.shared.registerUser(registrationData: registrationData, to: "https://example.com/api/register") { result in
+//            switch result {
+//            case .success:
+//                self.isRegistered = true
+//                print("Регистрация успешно завершена. Токен сохранен.")
+//            case .failure(let error):
+//                print("Ошибка регистрации: \(error.localizedDescription)")
+//            }
+//        }
     }
     
     func login(email: String, password: String) {

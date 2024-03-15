@@ -46,7 +46,6 @@
 		674A60852B83EE0500D21116 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A60842B83EE0500D21116 /* UserModel.swift */; };
 		674A60872B83EEE000D21116 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A60862B83EEE000D21116 /* RegistrationView.swift */; };
 		674A608B2B83F47100D21116 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A608A2B83F47100D21116 /* MainView.swift */; };
-		674A608D2B84CD7D00D21116 /* UserLogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A608C2B84CD7D00D21116 /* UserLogInViewModel.swift */; };
 		674A608F2B84D4AD00D21116 /* SocialNetworksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A608E2B84D4AD00D21116 /* SocialNetworksView.swift */; };
 		674A60912B84D54700D21116 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A60902B84D54700D21116 /* ResetPasswordView.swift */; };
 		674A60932B84E15E00D21116 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A60922B84E15E00D21116 /* ResetPasswordViewModel.swift */; };
@@ -153,7 +152,6 @@
 		674A60842B83EE0500D21116 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		674A60862B83EEE000D21116 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		674A608A2B83F47100D21116 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		674A608C2B84CD7D00D21116 /* UserLogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogInViewModel.swift; sourceTree = "<group>"; };
 		674A608E2B84D4AD00D21116 /* SocialNetworksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworksView.swift; sourceTree = "<group>"; };
 		674A60902B84D54700D21116 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		674A60922B84E15E00D21116 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -652,7 +650,6 @@
 		67CAF5252BA3B13B00A44658 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				674A608C2B84CD7D00D21116 /* UserLogInViewModel.swift */,
 				674A60C82B8D16C700D21116 /* UserViewModel.swift */,
 				674A60842B83EE0500D21116 /* UserModel.swift */,
 			);
@@ -835,7 +832,6 @@
 				674A60DB2B8E898100D21116 /* CourseView.swift in Sources */,
 				6739294D2B8FEA5B00F9B266 /* BadgesCardView.swift in Sources */,
 				675ED2362B77A0110039F0E9 /* ContentView.swift in Sources */,
-				674A608D2B84CD7D00D21116 /* UserLogInViewModel.swift in Sources */,
 				673929552B90F34A00F9B266 /* MyCustomButtonStyle.swift in Sources */,
 				67CAF5242BA3ACB400A44658 /* NetworkServiceWithAlamofire.swift in Sources */,
 				674A60A32B860E0000D21116 /* LeagueModel.swift in Sources */,

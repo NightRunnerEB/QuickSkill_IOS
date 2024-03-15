@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class ResetPasswordViewModel: ObservableObject {
+final class ResetPasswordViewModel: ObservableObject {
     @Published var email = ""
     @Published var newPassword = ""
     @Published var isEmailValid = false
