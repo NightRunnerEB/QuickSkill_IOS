@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeleteAccountView: View {
-    
+    @AppStorage("isUserAuthenticated") var isUserAuthenticated: Bool = false
     @EnvironmentObject var userVM: UserViewModel
     @State private var isPasswordVisible = false
     @State private var userPassword = ""
@@ -117,6 +117,7 @@ struct DeleteAccountView: View {
                 
                 
                 Button(action: {
+                    self.isUserAuthenticated = false
                     // удалить аккаунт
                 }, label: {
                     Text("Delete")
@@ -126,6 +127,7 @@ struct DeleteAccountView: View {
                         .frame(width: 160, height: 40)
                         .background(Color("Delete-button"))
                         .cornerRadius(12.25)
+                    
                 })
                 .padding(.leading, UIScreen.main.bounds.width / 5)
                 

@@ -33,7 +33,7 @@ final class UserViewModel: ObservableObject {
     }
     
     func login(email: String, password: String) {
-        self.isUserAuthenticated = true
+        self.isUserAuthenticated = true         // В рамках тестрирования в период отсутствия взаимосвязи с сервером.
 //        let loginData = LoginData(email: email, password: password)
 //        NetworkServiceWithAlamofire.shared.loginUser(loginData: loginData, to: "https://example.com/api/login")  { result in
 //            switch result {

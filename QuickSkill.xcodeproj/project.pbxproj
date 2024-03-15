@@ -83,6 +83,7 @@
 		674A60D92B8E56F500D21116 /* CourseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A60D82B8E56F500D21116 /* CourseItemView.swift */; };
 		674A60DB2B8E898100D21116 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A60DA2B8E898100D21116 /* CourseView.swift */; };
 		674A60DD2B8E9C3200D21116 /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A60DC2B8E9C3200D21116 /* ProgressCircleView.swift */; };
+		67538CA62BA4970100D8D733 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 67538CA52BA4970100D8D733 /* Alamofire */; };
 		675ED2342B77A0110039F0E9 /* QuickSkillApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ED2332B77A0110039F0E9 /* QuickSkillApp.swift */; };
 		675ED2362B77A0110039F0E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ED2352B77A0110039F0E9 /* ContentView.swift */; };
 		675ED2382B77A0130039F0E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 675ED2372B77A0130039F0E9 /* Assets.xcassets */; };
@@ -90,8 +91,6 @@
 		675ED2452B77A0130039F0E9 /* QuickSkillTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ED2442B77A0130039F0E9 /* QuickSkillTests.swift */; };
 		675ED24F2B77A0140039F0E9 /* QuickSkillUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ED24E2B77A0140039F0E9 /* QuickSkillUITests.swift */; };
 		675ED2512B77A0140039F0E9 /* QuickSkillUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ED2502B77A0140039F0E9 /* QuickSkillUITestsLaunchTests.swift */; };
-		67CAF51F2BA3ABCB00A44658 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 67CAF51E2BA3ABCB00A44658 /* Alamofire */; };
-		67CAF5212BA3ABCB00A44658 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 67CAF5202BA3ABCB00A44658 /* AlamofireDynamic */; };
 		67CAF5242BA3ACB400A44658 /* NetworkServiceWithAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAF5232BA3ACB400A44658 /* NetworkServiceWithAlamofire.swift */; };
 		67CAF52A2BA3F4E900A44658 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAF5292BA3F4E900A44658 /* Structs.swift */; };
 /* End PBXBuildFile section */
@@ -210,8 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				674A60C72B8D15DF00D21116 /* KeychainSwift in Frameworks */,
-				67CAF5212BA3ABCB00A44658 /* AlamofireDynamic in Frameworks */,
-				67CAF51F2BA3ABCB00A44658 /* Alamofire in Frameworks */,
+				67538CA62BA4970100D8D733 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,8 +689,7 @@
 			name = QuickSkill;
 			packageProductDependencies = (
 				674A60C62B8D15DF00D21116 /* KeychainSwift */,
-				67CAF51E2BA3ABCB00A44658 /* Alamofire */,
-				67CAF5202BA3ABCB00A44658 /* AlamofireDynamic */,
+				67538CA52BA4970100D8D733 /* Alamofire */,
 			);
 			productName = QuickSkill;
 			productReference = 675ED2302B77A0110039F0E9 /* QuickSkill.app */;
@@ -768,7 +765,7 @@
 			mainGroup = 675ED2272B77A0110039F0E9;
 			packageReferences = (
 				674A60C52B8D15DF00D21116 /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				67CAF51D2BA3ABCB00A44658 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				67538CA42BA4970100D8D733 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 675ED2312B77A0110039F0E9 /* Products */;
 			projectDirPath = "";
@@ -979,7 +976,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1036,7 +1033,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1230,7 +1227,7 @@
 				minimumVersion = 21.0.0;
 			};
 		};
-		67CAF51D2BA3ABCB00A44658 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		67538CA42BA4970100D8D733 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1246,15 +1243,10 @@
 			package = 674A60C52B8D15DF00D21116 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
 		};
-		67CAF51E2BA3ABCB00A44658 /* Alamofire */ = {
+		67538CA52BA4970100D8D733 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 67CAF51D2BA3ABCB00A44658 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 67538CA42BA4970100D8D733 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		67CAF5202BA3ABCB00A44658 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 67CAF51D2BA3ABCB00A44658 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
