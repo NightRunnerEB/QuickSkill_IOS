@@ -1,8 +1,9 @@
 import SwiftUI
+import PartialSheet
 
 struct PresentationView: View {
-    @State private var showingSheet = false
     @State private var isSelected = false
+    @State private var isSheetPresented = false
     
     var body: some View {
         VStack {
@@ -59,18 +60,19 @@ struct PresentationView: View {
             HStack(alignment: .center) {
                 Spacer()
 
-                Button(action: {
-                    showingSheet = true
-                }, label: {
-                    Text("More options")
-                      .font(Font.custom("Poppins", size: 17).weight(.semibold))
-                      .foregroundColor(Color("Purple"))
-                })
-                .sheet(isPresented: $showingSheet) {
-                    // Контент модального окна
-                    SheetContentView()
-                }
-
+                PSButton(
+                    isPresenting: $isSheetPresented,
+                    label: {
+                        HStack(alignment: .bottom) {
+                            Text("More options")
+                              .font(Font.custom("Poppins", size: 17).weight(.semibold))
+                              .foregroundColor(Color("Purple"))
+                        }
+                    })
+                .partialSheet(
+                    isPresented: $isSheetPresented,
+                    content: SocialNetworksView.init
+                )
 
                 Spacer()
                 // Кнопка для перехода на представление входа в систему

@@ -7,37 +7,25 @@
 
 import SwiftUI
 
-struct SheetContentView: View {
+struct SocialNetworksView: View {
+    
     var body: some View {
-        VStack {
-            Spacer()
-            // Индикатор для свайпа вниз
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: 40, height: 5)
-                .foregroundColor(.secondary)
-
-            // Кнопки в модальном окне
-            VStack(spacing: 20) {
-                SignInButton(text: "Continue with GitHub", imageName: "GitHub Logo")
-                SignInButton(text: "Continue with Facebook", imageName: "Facebook Logo")
-                SignInButton(text: "Continue with Google", imageName: "Google Logo")
-                SignInButton(text: "Continue with Apple", imageName: "Apple Logo")
-                    .padding(.bottom, 10)
-            }
-            .padding(.horizontal, 50)
-            .padding(.top, 5)
+        VStack(spacing: 20) {
+            SignInButton(text: "Continue with GitHub", imageName: "GitHub Logo")
+            SignInButton(text: "Continue with Facebook", imageName: "Facebook Logo")
+            SignInButton(text: "Continue with Google", imageName: "Google Logo")
+            SignInButton(text: "Continue with Apple", imageName: "Apple Logo")
+                .padding(.bottom, 10)
         }
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 20)
-        .presentationDetents([.height(320)])
+        .padding(.horizontal, 50)
+        .padding(.top, 5)
     }
 }
 
 struct SignInButton: View {
     var text: String
     var imageName: String
-
+    
     var body: some View {
         Button(action: {
             // Выполните действие входа здесь
@@ -47,9 +35,13 @@ struct SignInButton: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)
-
+                
+                Spacer()
+                
                 Text(text)
                     .foregroundColor(.white)
+                
+                Spacer()
             }
             .padding()
             .frame(maxWidth: .infinity)
@@ -60,5 +52,5 @@ struct SignInButton: View {
 }
 
 #Preview {
-    SheetContentView()
+    SocialNetworksView()
 }

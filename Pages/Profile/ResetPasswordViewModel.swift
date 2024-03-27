@@ -45,7 +45,7 @@ final class ResetPasswordViewModel: ObservableObject {
                 }
 
                 // Здесь предполагается, что сервер возвращает флаг, указывающий, существует ли email
-                self?.isEmailValid = true // Установите в true, если ответ сервера положительный
+                self?.isEmailValid = true
             }
         }
         task.resume()

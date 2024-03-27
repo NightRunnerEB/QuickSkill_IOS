@@ -16,7 +16,7 @@ struct ProfileView: View {
         
         let league = League.leagues.first(where: { $0.scoreRange.contains(userVM.user.experience) })!
         
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 VStack(spacing: 12) {
                     HStack(alignment: .top) {

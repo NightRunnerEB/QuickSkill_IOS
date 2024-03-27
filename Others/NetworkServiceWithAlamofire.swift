@@ -12,20 +12,26 @@ import Foundation
 class NetworkServiceWithAlamofire {
     static let shared = NetworkServiceWithAlamofire()
     
+    // Ленивая инициализация для 'session', чтобы использовать 'manager'
+    lazy var session: Session = {
+        let manager = ServerTrustManager(evaluators: ["localhost": DisabledTrustEvaluator()])
+        return Session(serverTrustManager: manager)
+    }()
+    
     private init() { }
-
+    
     func fetchData<T: Decodable>(from urlString: String, token: String) -> AnyPublisher<T, Error> {
         guard let url = URL(string: urlString) else {
             return Fail(error: NSError(domain: "InvalidURL", code: -1, userInfo: nil))
                 .eraseToAnyPublisher()
         }
-
+        
         // Создаем URLRequest и настраиваем его
         var request = URLRequest(url: url)
         request.httpMethod = "GET" // Устанавливаем метод запроса
         request.setValue(token, forHTTPHeaderField: "Authorization") // Устанавливаем токен авторизации
         request.setValue("application/json", forHTTPHeaderField: "Content-Type") // Устанавливаем заголовок Content-Type
-
+        
         // Возвращаем публикатор, который выполняет запрос и декодирует ответ
         return AF.request(request)
             .publishData(emptyResponseCodes: Set([200, 204, 205])) // Указание этих кодов в emptyResponseCodes говорит публикатору, что отсутствие тела ответа при получении этих кодов статуса не должно рассматриваться как ошибка.
@@ -35,7 +41,7 @@ class NetworkServiceWithAlamofire {
                 }
                 return data
             }
-            .decode(type: T.self, decoder: { 
+            .decode(type: T.self, decoder: {
                 let decoder = JSONDecoder();
                 decoder.keyDecodingStrategy = .convertFromSnakeCase;
                 return decoder }())
@@ -47,13 +53,13 @@ class NetworkServiceWithAlamofire {
             return Fail<Void, Error>(error: NSError(domain: "InvalidURL", code: -1, userInfo: nil))
                 .eraseToAnyPublisher()
         }
-
+        
         // Создаем URLRequest и настраиваем его для POST запроса
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(token, forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         do {
             let jsonData = try JSONEncoder().encode(requestData)
             request.httpBody = jsonData
@@ -61,7 +67,7 @@ class NetworkServiceWithAlamofire {
             return Fail<Void, Error>(error: error)
                 .eraseToAnyPublisher()
         }
-
+        
         // Используем Alamofire для отправки запроса и возвращаем результат в виде публикатора
         return AF.request(request)
             .publishData() // Создаем публикатор Combine
@@ -81,20 +87,20 @@ class NetworkServiceWithAlamofire {
             return Fail(error: NSError(domain: "InvalidURL", code: -1, userInfo: nil))
                 .eraseToAnyPublisher()
         }
-
+        
         // Создаем URLRequest и настраиваем его для POST запроса
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(token, forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         do {
             let jsonData = try JSONEncoder().encode(requestData)
             request.httpBody = jsonData
         } catch {
             return Fail(error: error).eraseToAnyPublisher()
         }
-
+        
         // Используем Alamofire для выполнения запроса и возвращаем результат в виде публикатора
         return AF.request(request)
             .publishData()
@@ -117,12 +123,12 @@ class NetworkServiceWithAlamofire {
             completion(.failure(NSError(domain: "InvalidURL", code: -1, userInfo: nil)))
             return
         }
-
+        
         // Создаем URLRequest и настраиваем его для POST запроса
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         do {
             let jsonData = try JSONEncoder().encode(registrationData)
             request.httpBody = jsonData
@@ -130,28 +136,27 @@ class NetworkServiceWithAlamofire {
             completion(.failure(error))
             return
         }
-
+        
         // Выполняем запрос с использованием Alamofire
-        AF.request(request).responseData { response in
-            switch response.result {
-            case .success:
-                guard let httpResponse = response.response else {
-                    completion(.failure(NSError(domain: "NoResponse", code: 0, userInfo: nil)))
-                    return
-                }
-                
-                // Проверяем наличие и извлекаем токен из Cookies
-                if let headerFields = httpResponse.allHeaderFields as? [String: String],
-                   let url = httpResponse.url,
-                   let cookies = HTTPCookie.cookies(withResponseHeaderFields: headerFields, for: url).first(where: { $0.name == "UserToken" }) {
-                    // Сохраняем токен в Keychain
-                    KeychainManager.shared.saveUserToken(cookies.value)
-                    completion(.success(()))
-                } else {
-                    completion(.failure(NSError(domain: "TokenError", code: -2, userInfo: [NSLocalizedDescriptionKey: "Не удалось извлечь токен пользователя."])))
-                }
-            case .failure(let error):
-                completion(.failure(error))
+        session.request(request).response { response in
+            guard let statusCode = response.response?.statusCode else {
+                completion(.failure(NSError(domain: "NoResponse", code: 0, userInfo: [NSLocalizedDescriptionKey: "Ответ от сервера не получен."])))
+                return
+            }
+            
+            switch statusCode {
+            case 200:
+                // Запрос успешно обработан
+                completion(.success(()))
+            case 400:
+                // Неправильное тело запроса
+                completion(.failure(NSError(domain: "BadRequest", code: 400, userInfo: [NSLocalizedDescriptionKey: "Неправильное тело запроса."])))
+            case 409:
+                // Ошибка на сервере
+                completion(.failure(NSError(domain: "ServerError", code: 409, userInfo: [NSLocalizedDescriptionKey: "Ошибка на сервере."])))
+            default:
+                // Обработка других кодов состояния
+                completion(.failure(NSError(domain: "UnexpectedResponse", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "Неожиданный ответ от сервера с кодом \(statusCode)."])))
             }
         }
     }
@@ -161,12 +166,12 @@ class NetworkServiceWithAlamofire {
             completion(.failure(NSError(domain: "InvalidURL", code: -1, userInfo: nil)))
             return
         }
-
+        
         // Создаем URLRequest и настраиваем его для POST запроса
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         do {
             let jsonData = try JSONEncoder().encode(loginData)
             request.httpBody = jsonData
@@ -174,9 +179,9 @@ class NetworkServiceWithAlamofire {
             completion(.failure(error))
             return
         }
-
+        
         // Выполняем запрос с использованием Alamofire
-        AF.request(request).responseData { response in
+        session.request(request).response { response in
             switch response.result {
             case .success:
                 guard let httpResponse = response.response else {
@@ -184,15 +189,23 @@ class NetworkServiceWithAlamofire {
                     return
                 }
                 
-                // Проверяем наличие и извлекаем токен из Cookies
-                if let headerFields = httpResponse.allHeaderFields as? [String: String],
-                   let url = httpResponse.url,
-                   let cookies = HTTPCookie.cookies(withResponseHeaderFields: headerFields, for: url).first(where: { $0.name == "UserToken" }) {
-                    // Сохраняем токен в Keychain
-                    KeychainManager.shared.saveUserToken(cookies.value)
-                    completion(.success(()))
+                // Извлекаем cookies из заголовков ответа
+                if let headerFields = httpResponse.allHeaderFields as? [String: String], let url = httpResponse.url {
+                    let cookies = HTTPCookie.cookies(withResponseHeaderFields: headerFields, for: url)
+                    
+                    // Ищем нужный cookie
+                    if let userTokenCookie = cookies.first {
+                        // Сохраняем значение токена в Keychain
+                        print("Найден токен: \(userTokenCookie.value)")
+                        KeychainManager.shared.saveUserToken(userTokenCookie.value)
+                        completion(.success(()))
+                    } else {
+                        // Ошибка: cookie с токеном не найден
+                        completion(.failure(NSError(domain: "TokenError", code: -2, userInfo: [NSLocalizedDescriptionKey: "Токен пользователя не найден в cookies."])))
+                    }
                 } else {
-                    completion(.failure(NSError(domain: "TokenError", code: -2, userInfo: [NSLocalizedDescriptionKey: "Не удалось извлечь токен пользователя."])))
+                    // Ошибка: не удалось извлечь cookies
+                    completion(.failure(NSError(domain: "CookieError", code: -3, userInfo: [NSLocalizedDescriptionKey: "Не удалось извлечь cookies из ответа."])))
                 }
             case .failure(let error):
                 completion(.failure(error))

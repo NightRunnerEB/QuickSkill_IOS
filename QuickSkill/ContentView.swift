@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PartialSheet
 
 struct ContentView: View {
     @AppStorage("isUserAuthenticated") var isUserAuthenticated: Bool = false
@@ -17,6 +18,8 @@ struct ContentView: View {
             NavigationView {
                 PresentationView()
             }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .attachPartialSheetToRoot()
         }
     }
 }

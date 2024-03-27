@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContactUsView: View {
-//    @Environment(\.dismiss) var dismiss
     @State private var isExpanded1 = false
     @State private var isExpanded2 = false
     @State private var isExpanded3 = false
@@ -19,27 +18,6 @@ struct ContactUsView: View {
     var body: some View {
         VStack {
             ScrollView {
-//                HStack {
-//                    Button(action: {
-//                        dismiss()
-//                    }, label: {
-//                        HStack(spacing: 0) {
-//                            Rectangle()
-//                                .foregroundColor(.clear)
-//                                .background(Image(systemName: "chevron.left"))
-//                                .frame(width: 20, height: 20)
-//                            Text("Back")
-//                                .font(Font.Poppins(size: 16))
-//                                .foregroundColor(Color("Purple"))
-//                        }
-//                        .frame(width: 60, height: 20)
-//                    })
-//                    .padding(.leading, 10)
-//                    .padding(.top, 5)
-//                    .padding(.bottom, 15)
-//                    
-//                    Spacer()
-//                }
                 
                 VStack(spacing: 12) {
                     HStack(spacing: 16) {

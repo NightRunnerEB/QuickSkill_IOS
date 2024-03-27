@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PartialSheet
 
 struct AllCoursesView: View {
     let courses = Course.allCourses
@@ -22,8 +23,8 @@ struct AllCoursesView: View {
     }
     
     var body: some View {
+        NavigationView {
         VStack {
-            
             HStack {
                 Button(action: {
                     dismiss()
@@ -44,7 +45,9 @@ struct AllCoursesView: View {
                 Spacer()
             }
             
-            NavigationView {
+            CustomSearchBarView()
+                .padding(.top, 10)
+            
                 ScrollView {
                     LazyVStack {
                         ForEach(filteredCourses) { course in
@@ -59,10 +62,10 @@ struct AllCoursesView: View {
                         }
                     }
                 }
-                .padding(.top, 25)
             }
-            .searchable(text: $searchText, prompt: "Search for courses")
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .attachPartialSheetToRoot()
     }
 }
 
